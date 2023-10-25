@@ -13,12 +13,8 @@ export default function Nav() {
     return (
         <aside className="text-admin-white p-4 pr-0">
 
-            <Link href="/" className="flex gap-1 mb-4 mr-4">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 5.25h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5m-16.5 4.5h16.5" />
-                </svg>
-
-                <span className="">Store Dashboard</span>
+            <Link href="/" className="flex gap-1 mb-8 mr-4">
+                <img className='rounded-xl' src="STORE.png" alt="store"/>
             </Link>
             <nav className='flex flex-col gap-2'>
                 <Link href={'/'} className={pathname === '/' ? activeLink : inactiveLink}>
