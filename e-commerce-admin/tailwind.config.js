@@ -8,11 +8,12 @@ module.exports = {
   ],
   theme: {
     colors: {
-      'admin-main': '#1A55E3',
-      'secondary-admin': '#FF0854',
-      'admin-green': '#00D284',
-      'admin-sky-blue': '#0DCAF0',
-      'admin-purple': '#5E6EED'
+      'dark-blue': '#12232E',
+      'lighter-blue': '#007CC7',
+      'lightest-blue': '#4DA8DA',
+      'shadow-of-dark-blue': '#203647',
+      'shadow-of-light-blue': '#EEFBFB',
+      'admin-white': '#ffffff'
     },
     extend: {
    
