@@ -10,7 +10,7 @@ const {data: session} = useSession();
   return (
     <Layout>
       <div className="text-dark-blue">
-        <h2>Hello, {session?.user?.name}</h2>
+        <h2>Hello, <b>{session?.user?.name}</b></h2>
       </div>
     </Layout>
   )

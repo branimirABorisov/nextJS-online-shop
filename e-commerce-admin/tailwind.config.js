@@ -13,7 +13,8 @@ module.exports = {
       'lightest-blue': '#4DA8DA',
       'shadow-of-dark-blue': '#203647',
       'shadow-of-light-blue': '#EEFBFB',
-      'admin-white': '#ffffff'
+      'admin-white': '#ffffff',
+      'primary-btn': '#15803d'
     },
     extend: {
    

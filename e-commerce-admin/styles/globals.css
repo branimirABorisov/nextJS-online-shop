@@ -3,3 +3,25 @@
 @tailwind utilities;
 
 
+
+input, textarea{
+    @apply border-2 rounded-md px-1 w-full;
+    @apply mb-3;
+}
+
+input:focus, textarea:focus {
+    @apply border border-shadow-of-dark-blue;
+
+}
+
+h1 {
+    @apply mb-3 text-lighter-blue text-xl;
+}
+
+label {
+    @apply text-shadow-of-dark-blue;
+}
+
+.btn-primary{
+    @apply bg-primary-btn text-admin-white px-4 rounded-md
+}
