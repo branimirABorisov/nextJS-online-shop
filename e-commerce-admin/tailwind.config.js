@@ -14,7 +14,8 @@ module.exports = {
       'shadow-of-dark-blue': '#203647',
       'shadow-of-light-blue': '#EEFBFB',
       'admin-white': '#ffffff',
-      'primary-btn': '#15803d'
+      'primary-btn': '#15803d',
+      'alert-btn': '#b91c1c'
     },
     extend: {
    
