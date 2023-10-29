@@ -1,6 +1,8 @@
+import { uploadImages } from "@/firebase";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+
 
 export default function ProductsForm({
     _id,
@@ -13,6 +15,7 @@ export default function ProductsForm({
     const [description, setDescription] = useState(existingDescription || '');
     const [price, setPrice] = useState(existingPrice || '');
     const [goToProducts, setGoToProducts] = useState(false);
+    const [imageFile, setImageFile] = useState(null);
 
     const router = useRouter();
     async function saveProduct(e) {
@@ -34,25 +37,14 @@ export default function ProductsForm({
         router.push('/products')
     }
 
-    async function uploadImages(ev) {
-        const files = ev.target?.files;
 
-        if (files?.length > 0) {
-            const data = new FormData();
+    useEffect(() => {
+        if (imageFile === null) return
+        console.log('useEffect', imageFile.name);
+        uploadImages(imageFile)
+    }, [imageFile])
 
-            for (const file of files) {
-                data.append('file', file);
-            }
-
-            const res = await fetch('/api/upload', {
-                method: 'POST',
-                body: data
-            })
-
-
-        }
-    }
-
+    
     return (
         <form onSubmit={saveProduct}>
             <label>Product name</label>
@@ -70,7 +62,7 @@ export default function ProductsForm({
                     </svg>
 
                     Upload
-                    <input type="file" onChange={uploadImages} className="hidden" />
+                    <input type="file" onChange={(event) => {setImageFile(event.target.files[0])}} className="hidden" />
                 </label>
             </div>
             <label>Description</label>
