@@ -20,4 +20,10 @@ export default async function handle(req, res) {
             res.json(await Category.find().populate('parent'));
         }
     }
+
+    if (method === 'PUT') {
+        const { name, parentCategory, _id } = req.body;
+        const newCategory = await Category.updateOne({_id}, { name, parent: parentCategory });
+        res.json(newCategory);
+    }
 }

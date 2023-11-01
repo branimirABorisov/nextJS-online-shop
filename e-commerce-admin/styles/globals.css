@@ -53,5 +53,5 @@ table.basic a {
 }
 
 .btn-default {
-    @apply  bg-lightest-blue px-4 py-1 rounded-lg text-shadow-of-light-blue
+    @apply  bg-lighter-blue text-shadow-of-light-blue text-sm py-1 px-2 mr-1 rounded-md inline-flex gap-2
 }
