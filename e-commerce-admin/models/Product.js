@@ -1,10 +1,11 @@
-const { model, Schema, models } = require("mongoose");
+import mongoose, {model, Schema, models} from 'mongoose';
 
 const ProductShema = new Schema({
     title: {type: String, required: true},
     description: {type: String, required: true},
     price: {type: Number, required: true},
-    images: [{type: String}]
+    images: [{type: String}],
+    category: {type:mongoose.Types.ObjectId, ref: 'Category'}
 })
 
 
