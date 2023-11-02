@@ -88,6 +88,8 @@ export default function ProductsForm({
                 value={title}
                 onChange={ev => setTitle(ev.target.value)}
             />
+            <label>Category</label>
+
             <select value={category} onChange={e => setCategory(e.target.value)}>
                 <option value="">Uncategorized</option>
                 {categories.length > 0 && categories.map((cat) => (

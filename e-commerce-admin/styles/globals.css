@@ -27,7 +27,7 @@ label {
 }
 
 .btn-primary{
-    @apply bg-primary-btn text-admin-white px-4 rounded-md
+    @apply bg-primary-btn px-4 py-1 rounded-lg text-shadow-of-light-blue
 }
 
 table.basic {
