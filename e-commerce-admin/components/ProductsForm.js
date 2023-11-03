@@ -13,9 +13,12 @@ export default function ProductsForm({
     description: existingDescription,
     price: existingPrice,
     images: existingImages,
-    category: existingCategory }) {
+    category: existingCategory,
+    properties: existingProperties
+}) {
 
-    const [category, setCategory] = useState(existingCategory || '');    
+    const [category, setCategory] = useState(existingCategory || '');
+    const [productProperties, setProductProperties] = useState(existingProperties || {})
     const [title, setTitle] = useState(existingTitle || '');
     const [description, setDescription] = useState(existingDescription || '');
     const [price, setPrice] = useState(existingPrice || '');
@@ -25,16 +28,20 @@ export default function ProductsForm({
     const [categories, setCategories] = useState([])
     const router = useRouter();
 
-        useEffect(() => {
-            axios.get('/api/categories').then(res => {
-                setCategories(res.data);
-            })
-        }, [])
+    useEffect(() => {
+        axios.get('/api/categories').then(res => {
+            setCategories(res.data);
+        })
+    }, [])
 
 
     async function saveProduct(e) {
         e.preventDefault();
-        const data = { title, description, price, images, category };
+        const data = { 
+            title, description, price, images, category, 
+            properties: productProperties 
+        };
+
 
         if (_id) {
 
@@ -74,9 +81,30 @@ export default function ProductsForm({
         }
     }
 
-    
-    function updateImagesOrder (images) {
+
+    function updateImagesOrder(images) {
         setImages(images);
+    }
+
+    function setProductProp (propName, value) {
+        setProductProperties(prev => {
+            const newProductProps = {...prev}
+            newProductProps[propName] = value;
+            return newProductProps;
+        })
+    }
+
+
+    const propertiesToFill = [];
+
+    if (categories.length > 0 && category) {
+        let catInfo = categories.find(({ _id }) => _id === category);
+        propertiesToFill.push(...catInfo.properties);
+        while (catInfo?.parent?._id) {
+            const parentCategory = categories.find(({ _id }) => _id === catInfo?.parent?._id);
+            propertiesToFill.push(...parentCategory.properties);
+            catInfo = parentCategory;
+        }
     }
 
     return (
@@ -93,9 +121,21 @@ export default function ProductsForm({
             <select value={category} onChange={e => setCategory(e.target.value)}>
                 <option value="">Uncategorized</option>
                 {categories.length > 0 && categories.map((cat) => (
-                <option value={cat._id}>{cat.name}</option>
+                    <option value={cat._id}>{cat.name}</option>
                 ))}
             </select>
+            {propertiesToFill.length > 0 && propertiesToFill.map(p => (
+                <div className="flex gap-1">
+                    <div>
+                        {p.name}
+                    </div>
+                    <select value={productProperties[p.name]} onChange={(ev) => setProductProp(p.name, ev.target.value)}>
+                        {p.values.map(v => (
+                            <option value={v}>{v}</option>
+                        ))}
+                    </select> 
+                </div>
+            ))}
             <label>Photos</label>
             <div className="mb-2 flex flex-wrap gap-2">
                 <ReactSortable list={images} setList={updateImagesOrder} className="flex flex-wrap gap-2">

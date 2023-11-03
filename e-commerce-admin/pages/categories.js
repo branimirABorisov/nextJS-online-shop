@@ -27,11 +27,14 @@ function Categories({ swal }) {
             await axios.put('/api/categories', data)
             setName('');
             setEditedCAtegory(null);
+            setProperties([]);
             getCategories();
         } else {
             await axios.post('/api/categories', data);
             setName('');
+            setProperties([]);
             getCategories();
+
         }
 
     }
@@ -62,7 +65,12 @@ function Categories({ swal }) {
     function editCategory(category) {
         setEditedCAtegory(category);
         setName(category.name);
-        setParentCategory(category.parent?._id)
+        setParentCategory(category.parent?._id);
+        setProperties(
+            category.properties.map(({name, values}) => ({
+            name,
+            values: values.join(', ')
+        })));
     }
 
     function deleteCategory(category) {
@@ -102,6 +110,7 @@ function Categories({ swal }) {
         setName('');
         setEditedCAtegory(null);
         setParentCategory('');
+        setProperties([])
     }
 
     return (

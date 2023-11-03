@@ -1,6 +1,8 @@
 import multiparty from 'multiparty';
 import { initializeApp } from 'firebase/app';
 import { getStorage, ref, uploadBytes, getDownloadURL  } from 'firebase/storage';
+import { isAdmin } from './auth/[...nextauth]';
+import { mongooseConnect } from '@/lib/mongoose';
 
 const firebaseConfig = {
   apiKey: process.env.FB_API_KEY,
@@ -14,6 +16,9 @@ const firebaseConfig = {
 };
 
 export default async function handle(req, res) {
+  await mongooseConnect();
+  await isAdmin(req, res);
+
   const app = initializeApp(firebaseConfig);
   const storage = getStorage(app);
   const form = new multiparty.Form();
