@@ -5,17 +5,23 @@ import { useRouter } from 'next/router';
 
 export default function Nav() {
 
-    const inactiveLink = 'flex gap-1 p-1 rounded-l-xl'
+    const inactiveLink = 'flex gap-1 p-1 rounded-sm'
     const activeLink = inactiveLink + ' bg-shadow-of-light-blue text-dark-blue'
 
     const router = useRouter();
 
     const { pathname } = router;
+
+
+    async function logout () {
+        await router.push('/');
+        await signOut();
+    }
     return (
-        <aside className="text-admin-white p-4 pr-0">
+        <aside className="text-admin-white p-4 ">
 
             <Link href="/" className="flex gap-1 mb-8 mr-4">
-                <img className='rounded-xl' src="STORE.png" alt="store" />
+                <img className='rounded-xl' src="https://firebasestorage.googleapis.com/v0/b/nextjs-e-commerce-storage.appspot.com/o/next%2FSTORE.png?alt=media&token=cb4ed7fa-3863-4008-ac91-a7c8ac6ab9f2&_gl=1*12tsj1n*_ga*MTU5NjIxNDkyNy4xNjkxODY4NDE4*_ga_CW55HF8NVT*MTY5OTAyNTEwNy4xOC4xLjE2OTkwMjUyODUuNDguMC4w" alt="store" />
             </Link>
             <nav className='flex flex-col gap-2'>
                 <Link href={'/'} className={pathname === '/' ? activeLink : inactiveLink}>
@@ -60,7 +66,7 @@ export default function Nav() {
 
                     Settings
                 </Link>
-                <button onClick={() => signOut()}className={inactiveLink}>
+                <button onClick={logout}className={inactiveLink}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
                     </svg>

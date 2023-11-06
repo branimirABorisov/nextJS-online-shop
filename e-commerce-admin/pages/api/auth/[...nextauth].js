@@ -37,6 +37,8 @@ export async function isAdmin (req, res) {
   const session = await getServerSession(req, res, authOptions);
 
   if (!adminEmails.includes(session?.user?.email)){
-    throw 'Not Admin'
+    res.status(401);
+    res.end()
+    throw 'Not Admin';
   }
 }
