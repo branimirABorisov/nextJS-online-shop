@@ -4,7 +4,8 @@ import Center from "../components/Center"
 import Header from "../components/Header"
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components"
-import Table from "@/components/Table";
+import Table from "../components/Table";
+import Input from "../components/Input";
 
 const Wrapper = styled.div`
     display: grid;
@@ -47,10 +48,24 @@ const QuantityLabel = styled.span`
 
 `;
 
+const InputGroup = styled.div`
+display: flex;
+gap: 2px;
+`
+
 export default function cart() {
 
     const { cartProducts, addProduct, removeProduct } = useContext(CartContext);
     const [products, setProducts] = useState([]);
+    const [firstName, setFirstName] = useState('');
+    const [lastName, setLastName] = useState('');
+    const [email, setEmail] = useState('');
+    const [city, setCity] = useState('');
+    const [postCode, setPostCode] = useState('');
+    const [address, setAddress] = useState('');
+    const [phone, setPhone] = useState('');
+
+
 
     useEffect(() => {
         if (cartProducts.length > 0) {
@@ -62,11 +77,11 @@ export default function cart() {
 
     }, [cartProducts])
 
-    function addQuantity (id) {
+    function addQuantity(id) {
         addProduct(id)
     }
 
-    function removeQuantity (id) {
+    function removeQuantity(id) {
         removeProduct(id)
     }
 
@@ -111,13 +126,13 @@ export default function cart() {
                                         <td>
                                             <QuantityLabel>
 
-                                            <button type="button" onClick={() => removeQuantity(product._id)}>-</button>
+                                                <button type="button" onClick={() => removeQuantity(product._id)}>-</button>
 
                                             </QuantityLabel>
                                             {cartProducts.filter(id => id === product._id).length}
                                             <QuantityLabel>
 
-                                            <button type="button" onClick={() => addQuantity(product._id)}>+</button>
+                                                <button type="button" onClick={() => addQuantity(product._id)}>+</button>
 
                                             </QuantityLabel>
                                         </td>
@@ -135,9 +150,22 @@ export default function cart() {
                     </Box>
                     <Box>
                         <h2>Order Summary</h2>
-                        <input type="text" placeholder="Adress" />
-                        <input type="text" placeholder="Adress1" />
-                        <button type="button">Proceed to checkout</button>
+                        <form method="POST" action="/api/checkout">
+
+                            <InputGroup>
+                                <Input type="text" name="firstName" value={firstName} placeholder="First name" onChange={e => setFirstName(e.target.value)} />
+                                <Input type="text" name="lastName" value={lastName} placeholder="Last name" onChange={e => setLastName(e.target.value)} />
+                            </InputGroup>
+                            <Input type="text" name="email" avalue={email} placeholder="Email" onChange={e => setEmail(e.target.value)} />
+                            <Input type="text" name="city" value={city} placeholder="City" onChange={e => setCity(e.target.value)} />
+                            <Input type="text" name="postCode" value={postCode} placeholder="Postal Code" onChange={e => setPostCode(e.target.value)} />
+                            <Input type="text" name="address" value={address} placeholder="Street Address" onChange={e => setAddress(e.target.value)} />
+                            <Input type="text" name="phone" value={phone} placeholder="Phone number" onChange={e => setPhone(e.target.value)} />
+                            <input type="hidden" name="products" value={cartProducts.join(', ')} />
+                            <button type="submit">Proceed to checkout</button>
+
+                        </form>
+
                     </Box>
                 </Wrapper>
             </Center>
