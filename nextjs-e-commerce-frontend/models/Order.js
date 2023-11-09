@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+import { model, Schema, models } from "mongoose";
 
 const OrderShema = new Schema({
     items: Object,
@@ -8,9 +8,14 @@ const OrderShema = new Schema({
     city: {type:String},
     postCode: {type: String},
     address: {type: String},
-    phone: {type: String}
-})
+    phone: {type: String},
+    orderStatus: { 
+        type: String,
+        enum: ["new", "pending", "cancel", "complete"],
+        default: "new"
+    }
+}, { timestamps: true })
 
 
 
-export const Order = model?.Order || model('Order', OrderShema);
+export const Order = models?.Order || model('Order', OrderShema);
