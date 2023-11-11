@@ -31,16 +31,16 @@ label {
 }
 
 table.basic {
-    @apply w-full mt-5;
+    @apply w-full mt-5 bg-admin-white rounded-xl shadow-md;
 }
 
 table.basic thead tr td {
-    @apply bg-dark-blue text-shadow-of-light-blue;
+    @apply bg-dark-blue text-shadow-of-light-blue border-b p-1 ;
 }
 
-table.basic tr td {
+table.basic tr {
 
-    @apply border p-1 border-y-dark-blue;
+    @apply border p-1 border-y-dark-blue text-sm uppercase;
 }
 
 

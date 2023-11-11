@@ -1,9 +1,10 @@
 import { signOut } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Logo from './Logo';
 
 
-export default function Nav() {
+export default function Nav({show}) {
 
     const inactiveLink = 'flex gap-1 p-1 rounded-sm'
     const activeLink = inactiveLink + ' bg-shadow-of-light-blue text-dark-blue'
@@ -18,11 +19,12 @@ export default function Nav() {
         await signOut();
     }
     return (
-        <aside className="text-admin-white p-4 ">
-
-            <Link href="/" className="flex gap-1 mb-8 mr-4">
-                <img className='rounded-xl' src="https://firebasestorage.googleapis.com/v0/b/nextjs-e-commerce-storage.appspot.com/o/next%2FSTORE.png?alt=media&token=cb4ed7fa-3863-4008-ac91-a7c8ac6ab9f2&_gl=1*12tsj1n*_ga*MTU5NjIxNDkyNy4xNjkxODY4NDE4*_ga_CW55HF8NVT*MTY5OTAyNTEwNy4xOC4xLjE2OTkwMjUyODUuNDguMC4w" alt="store" />
-            </Link>
+        <aside className={(show ? 'left-0' : '-left-full') 
+        +" top-0 text-admin-white p-4 fixed w-full bg-dark-blue h-full md:w-auto md:static transition-all" }>
+            <div className='mb-4 mr-4'>
+            <Logo />
+                
+            </div>
             <nav className='flex flex-col gap-2'>
                 <Link href={'/'} className={pathname === '/' ? activeLink : inactiveLink}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
