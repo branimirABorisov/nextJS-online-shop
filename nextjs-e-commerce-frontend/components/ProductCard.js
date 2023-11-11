@@ -1,6 +1,8 @@
 import { useContext } from "react";
 import styled from "styled-components"
 import { CartContext } from "./Cartcontext";
+import Link from "next/link";
+
 
 const MainCard = styled.div`
 background-color: white;
@@ -10,6 +12,7 @@ flex-direction: column;
 text-align: center;
 border-radius: 7px;
 font-size: 14px;
+text-decoration: none;
 
 img{
     max-width: 100%;
@@ -47,6 +50,14 @@ const StyledButton = styled.button`
     cursor: pointer;
 `
 
+const StyledLink = styled.a`
+text-decoration: none;
+color: black;
+
+`;
+
+
+
 
 
 export default function ProductCard({ _id, title, price, images }) {
@@ -56,12 +67,14 @@ export default function ProductCard({ _id, title, price, images }) {
         addProduct(_id);
     }
 
+    const url = '/product/' + _id;
+
     return (
         <MainCard>
-            <img src={images[0]} alt="image" />
-            <Title>
-                {title}
-            </Title>
+            <Link href={url}><img src={images[0]} alt="image" /></Link>
+            <StyledLink href={url}><Title>{title}</Title></StyledLink>
+            
+            
             <CardFooter>
                 {price.toFixed(2)} лв.
                 <StyledButton type="button" onClick={addToCard}>
